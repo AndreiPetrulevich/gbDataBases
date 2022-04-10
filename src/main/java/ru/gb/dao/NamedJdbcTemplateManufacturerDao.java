@@ -1,10 +1,13 @@
 package ru.gb.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.gb.entity.Manufacturer;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +19,9 @@ public class NamedJdbcTemplateManufacturerDao implements ManufacturerDao {
 
     @Override
     public Iterable<Manufacturer> findAll() {
-        return null;
+        String sql = "SELECT * FROM manufacturer";
+
+        return namedParameterJdbcTemplate.query(sql, new ManufacturerMapper());
     }
 
     @Override
@@ -45,5 +50,16 @@ public class NamedJdbcTemplateManufacturerDao implements ManufacturerDao {
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put("manufacturer_id", id);
         return namedParameterJdbcTemplate.queryForObject(sql, namedParameters, String.class);
+    }
+
+    private static class ManufacturerMapper implements RowMapper<Manufacturer> {
+
+        @Override
+        public Manufacturer mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return Manufacturer.builder()
+                    .id(rs.getLong("id"))
+                    .name(rs.getString("name"))
+                    .build();
+        }
     }
 }
