@@ -1,5 +1,6 @@
 package ru.gb.dao.ManufacturerDao;
 
+import ru.gb.DBConnection;
 import ru.gb.entity.Manufacturer;
 
 import java.sql.*;
@@ -8,27 +9,12 @@ import java.util.Set;
 
 public class OldJdbcManufacturerDao implements ManufacturerDao {
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gb_shop", "geek", "geek");
-    }
-
-    private void closeConnection(Connection connection) {
-        if (connection == null) {
-            return;
-        }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public Iterable<Manufacturer> findAll() {
         Set<Manufacturer> manufacturers = new HashSet<>();
         Connection connection = null;
         try {
-            connection = getConnection();
+            connection = DBConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM manufacturer");
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
@@ -42,7 +28,7 @@ public class OldJdbcManufacturerDao implements ManufacturerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeConnection(connection);
+            DBConnection.closeConnection(connection);
         }
         return manufacturers;
     }
