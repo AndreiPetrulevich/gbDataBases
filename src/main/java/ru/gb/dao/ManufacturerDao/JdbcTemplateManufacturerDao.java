@@ -1,8 +1,7 @@
-package ru.gb.dao;
+package ru.gb.dao.ManufacturerDao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import ru.gb.entity.Manufacturer;
 
 //@Component

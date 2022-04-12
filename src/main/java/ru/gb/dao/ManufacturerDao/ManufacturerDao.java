@@ -1,4 +1,4 @@
-package ru.gb.dao;
+package ru.gb.dao.ManufacturerDao;
 
 import ru.gb.entity.Manufacturer;
 

@@ -1,30 +1,34 @@
-package ru.gb.dao;
+package ru.gb.dao.ManufacturerDao;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 import ru.gb.entity.Manufacturer;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Component
-@RequiredArgsConstructor
-public class SpringJdbcManufacturerDao implements ManufacturerDao {
+public class OldJdbcManufacturerDao implements ManufacturerDao {
 
-    private final DataSource dataSource;
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gb_shop", "geek", "geek");
+    }
+
+    private void closeConnection(Connection connection) {
+        if (connection == null) {
+            return;
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Iterable<Manufacturer> findAll() {
         Set<Manufacturer> manufacturers = new HashSet<>();
         Connection connection = null;
         try {
-            connection = dataSource.getConnection();
+            connection = getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM manufacturer");
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
@@ -38,11 +42,7 @@ public class SpringJdbcManufacturerDao implements ManufacturerDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeConnection(connection);
         }
         return manufacturers;
     }
