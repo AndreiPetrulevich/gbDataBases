@@ -5,9 +5,9 @@ insert into MANUFACTURER (name) values ('X-Links Silver Shares Covered Call ETN'
 insert into MANUFACTURER (name) values ('Nicholas Financial, Inc.');
 insert into MANUFACTURER (name) values ('Aberdeen Singapore Fund, Inc.');
 insert into MANUFACTURER (name) values ('Liberty Interactive Corporation');
+insert into MANUFACTURER (name) values ('SAExploration Holdings, Inc.');
 insert into MANUFACTURER (name) values ('Nivalis Therapeutics, Inc.');
 insert into MANUFACTURER (name) values ('TransAct Technologies Incorporated');
-insert into MANUFACTURER (name) values ('SAExploration Holdings, Inc.');
 
 
 
