@@ -10,7 +10,7 @@ import ru.gb.entity.Product;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class NamedJdbcTemplateProductDao implements ProductDao {
 

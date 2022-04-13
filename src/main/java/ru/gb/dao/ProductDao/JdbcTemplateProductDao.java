@@ -7,7 +7,7 @@ import ru.gb.ProductExtractor;
 import ru.gb.ProductMapper;
 import ru.gb.entity.Product;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class JdbcTemplateProductDao implements ProductDao {
 

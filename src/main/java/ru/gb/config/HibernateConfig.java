@@ -1,4 +1,3 @@
-/*
 package ru.gb.config;
 
 import org.hibernate.SessionFactory;
@@ -75,4 +74,3 @@ public class HibernateConfig {
         return hibernateProps;
     }
 }
-*/
