@@ -2,6 +2,7 @@ package ru.gb.entity;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,12 +12,26 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @ToString
+@Entity
+@Table(name = "MANUFACTURER")
+@NamedQueries({
+        @NamedQuery(name = "Manufacturer.findNameById",
+        query = "select m.name from Manufacturer m where m.id = :id"),
+        @NamedQuery(name = "Manufacturer.findById",
+        query = "select m from Manufacturer m where m.id = :id")
+})
 public class Manufacturer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(name = "name")
     private String name;
+
+    @Transient
     private Set<Product> products;
 
-    private boolean addProduct(Product product) {
+    public boolean addProduct(Product product) {
         if (products == null) {
             products = new HashSet<>();
         }

@@ -1,3 +1,4 @@
+/*
 package ru.gb.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -54,3 +55,4 @@ public class DbConfig {
     }
 
 }
+*/
